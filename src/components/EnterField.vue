@@ -54,23 +54,23 @@ export default {
 };
 </script>
 
-<style scoped lang="stylus">
+<style scoped lang="sass">
 div
-  font-size 28px
-  background #8cff8f
-  color  #182e18
-  padding 3rem
-  margin 1rem
+  font-size: 28px
+  background: #8cff8f
+  color:  #182e18
+  padding: 3rem
+  margin: 1rem
 
 .fa
-  margin-right 1rem
+  margin-right: 1rem
 
 #student-id,
 #temperature
-  color  #182e18
-  font-size 36px
+  color: #182e18
+  font-size: 36px
 
 #enter-button
-  color  #182e18
-  font-size 32px
+  color:  #182e18
+  font-size: 32px
 </style>
