@@ -16,19 +16,22 @@
     "webpack": "5"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
     "@prettier/plugin-pug": "^1.16.6",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "~5.0.0-beta.3",
+    "@vue/cli-plugin-eslint": "~5.0.0-beta.3",
+    "@vue/cli-service": "~5.0.0-beta.3",
     "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-airbnb": "^5.0.2",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "@vue/eslint-config-airbnb": "^5.3.0",
+    "eslint": "^7.20.0",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-vue": "^7.0.0",
+    "eslint-plugin-vue": "^7.6.0",
     "prettier": "^2.4.0",
     "pug": "^3.0.2",
-    "pug-plain-loader": "^1.1.0"
+    "pug-plain-loader": "^1.1.0",
+    "stylus": "^0.55.0",
+    "stylus-loader": "6"
   },
   "eslintConfig": {
     "root": true,
@@ -40,7 +43,7 @@
       "@vue/airbnb"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "rules": {}
   },
