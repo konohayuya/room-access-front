@@ -1,7 +1,6 @@
 <template lang="pug">
-side-bar.menu
+side-bar.menu(title="入室管理")
 div.main-wrapper
-  h1 入室管理
   enter-field
 </template>
 

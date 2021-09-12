@@ -20,8 +20,8 @@ div: form(v-on:submit.prevent="formSubmit")
 import { ref } from 'vue'
 
 export default {
+  name: "enter-field",
   props: {
-    name: String,
   },
   setup() {
     const studentID = ref('')

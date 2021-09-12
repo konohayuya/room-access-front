@@ -1,22 +1,27 @@
 <template lang="pug">
-ul.sidebar-inner
-  li: a(target="_blank")
-    font-awesome-icon.fa(:icon="['fas', 'user-circle']" fixed-width)
-    | 入室管理
-  li: a(target="_blank")
-    font-awesome-icon.fa(:icon="['fas', 'id-card']" fixed-width)
-    | 入室記録
-  li: a(target="_blank")
-    font-awesome-icon.fa(:icon="['fas', 'hourglass-half']" fixed-width)
-    | タイマー
+div
+  h1.head  {{ title }}
+  ul.sidebar-inner
+    li: a(target="_blank")
+      font-awesome-icon.fa(:icon="['fas', 'user-circle']" fixed-width)
+      | 入室管理
+    li: a(target="_blank")
+      font-awesome-icon.fa(:icon="['fas', 'id-card']" fixed-width)
+      | 入室記録
+    li: a(target="_blank")
+      font-awesome-icon.fa(:icon="['fas', 'hourglass-half']" fixed-width)
+      | タイマー
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-export default defineComponent({
+export default {
   name: 'side-bar',
-})
+  props: {
+    title: String
+  },
+}
 </script>
 
 <style scoped lang="stylus">
