@@ -6,8 +6,8 @@ div.main-wrapper
 </template>
 
 <script lang="ts">
-import EnterField from './components/EnterField.vue';
-import SideBar from './components/sideBar.vue';
+import EnterField from './components/EnterField.vue'
+import SideBar from './components/sideBar.vue'
 
 export default {
   name: 'App',
@@ -15,7 +15,7 @@ export default {
     SideBar,
     EnterField,
   },
-};
+}
 </script>
 
 <style lang="stylus">

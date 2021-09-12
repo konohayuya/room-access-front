@@ -17,32 +17,32 @@ div: form(v-on:submit.prevent="formSubmit")
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default {
   props: {
     name: String,
   },
   setup() {
-    const studentID = ref('');
-    const temperature = ref(37);
+    const studentID = ref('')
+    const temperature = ref(37)
 
     const formSubmit = () => {
       // eslint-disable-next-line no-console
-      console.log(studentID.value);
+      console.log(studentID.value)
       // eslint-disable-next-line no-console
-      console.log(temperature.value);
+      console.log(temperature.value)
 
       // form send
 
       // reset Value
-      studentID.value = '';
-      temperature.value = 37;
-    };
+      studentID.value = ''
+      temperature.value = 37
+    }
 
-    return { studentID, temperature, formSubmit };
+    return { studentID, temperature, formSubmit }
   },
-};
+}
 </script>
 
 <style scoped lang="stylus">
