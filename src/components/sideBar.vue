@@ -25,16 +25,25 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.sidebar-inner
+char-color = #fafafa
+
+div
   background #333333
+  color char-color
+
+.sidebar-inner
   margin 0
   padding 0
-  align-items center
   border-top 1px solid rgba(255, 255, 255, 0.10)
+
+h1
+  text-align center
 
 .sidebar-inner li
   list-style none
-  color #fafafa
+  font-size 20px
+  color char-color
+  text-align center
   text-transform uppercase
   /*font-weight bold*/
   padding 30px
@@ -47,7 +56,7 @@ export default {
   color rgba(16, 16, 16, 0.50)
 
 .sidebar-inner li a
-  color #fafafa
+  color char-color
   text-transform uppercase
   cursor pointer
   text-decoration none

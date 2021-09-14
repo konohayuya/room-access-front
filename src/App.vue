@@ -21,7 +21,7 @@ export default {
 body
   margin 0
   font-family sans-serif
-  background #f5f6f8
+  background #cacdce
   color #262626
 
 .menu
@@ -34,8 +34,10 @@ body
 
 .main-wrapper
   /* display: flex; 要素を横並びにする */
-  flex-direction column /* 要素の並び順の主軸を指定 上 => 下 */
-  min-height 100vh /* 要素の高さの最小値を指定 vhはviewport(表示領域) heightの略 */
+  /* 要素の並び順の主軸を指定 上 => 下 */
+  flex-direction column
+  /* 要素の高さの最小値を指定 vhはviewport(表示領域) heightの略 */
+  min-height 100vh
 
   /* サイドバーのwidth分だけ範囲を削除 */
   width calc(100% - 250px)
@@ -44,6 +46,6 @@ body
   margin-left 250px
 
   /* ちょっとだけ隙間をとる */
-  padding 1rem 1rem 1rem 1rem
+  padding 0.5rem
   box-sizing border-box
 </style>

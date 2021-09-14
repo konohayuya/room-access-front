@@ -48,22 +48,45 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+vendor(prop, args)
+  -webkit-{prop} args
+  -moz-{prop} args
+  {prop} args
+
+char-color = #202d1e
+
 div
   font-size 28px
-  background #8cff8f
-  color  #182e18
+  background #f5f6f8
+  color char-color
   padding 3rem
-  margin 1rem
+  margin 0.5rem
+  vendor(border-radius, 5px)
+  shadows = inset 1px 1px 0 0 rgba(255,255,255, 0.2), inset -1px -1px 0 0 rgba(0,0,0, 0.2)
+  vendor(box-shadow, shadows)
+
+p
+  margin-top 0
 
 .fa
   margin-right 1rem
 
 #student-id,
 #temperature
-  color #182e18
-  font-size 36px
+  -webkit-appearance: none;
+  color char-color
+  background #f4f5f4
+  font-size 32px
+  width 240px
+  border 1px solid rgba(80, 80, 80, 0.5)
+  vendor(border-radius, 5px)
+  padding 5px 5px 5px 10px
 
 #enter-button
-  color  #182e18
+  color #eeeeee
+  background #538a9a
+  alignment left
   font-size 32px
+  width 6em
+  border none
 </style>
