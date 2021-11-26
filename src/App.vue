@@ -1,12 +1,16 @@
 <template lang="pug">
-side-bar.menu(title="入室管理")
-div.main-wrapper
-  enter-field
+ui-top-app-bar.app-bar(content-selector=".content-wrapper" :nav-icon="false") Title
+div.content-wrapper
+  side-bar
+  div.main-wrapper
+    ui-grid
+      ui-grid-cell(columns="4")
+        enter-field
 </template>
 
 <script lang="ts">
 import EnterField from './components/EnterField.vue'
-import SideBar from './components/sideBar.vue'
+import SideBar from './components/SideBar.vue'
 
 export default {
   name: 'App',
@@ -21,31 +25,11 @@ export default {
 body
   margin 0
   font-family sans-serif
-  background #cacdce
+  //background #cacdce
   color #262626
 
-.menu
-  height 100%
-  position fixed
-  top 0
-  left 0
-  width 250px
-  border-right 1px solid rgba(16, 16, 16, 0.10)
-
 .main-wrapper
-  /* display: flex; 要素を横並びにする */
-  /* 要素の並び順の主軸を指定 上 => 下 */
-  flex-direction column
-  /* 要素の高さの最小値を指定 vhはviewport(表示領域) heightの略 */
-  min-height 100vh
-
-  /* サイドバーのwidth分だけ範囲を削除 */
-  width calc(100% - 250px)
-
-  /* サイドバーで隠れるので右に寄せる */
-  margin-left 250px
-
-  /* ちょっとだけ隙間をとる */
-  padding 0.5rem
-  box-sizing border-box
+  width 100%
+  height 100%
+  overflow auto
 </style>
