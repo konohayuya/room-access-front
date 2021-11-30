@@ -6,15 +6,19 @@ div.content-wrapper
     ui-grid
       ui-grid-cell(columns="4")
         enter-field
+      ui-grid-cell
+        bus-schedule
 </template>
 
 <script lang="ts">
 import EnterField from './components/EnterField.vue'
 import SideBar from './components/SideBar.vue'
+import BusSchedule from "@/components/BusSchedule.vue"
 
 export default {
   name: 'App',
   components: {
+    BusSchedule,
     SideBar,
     EnterField,
   },

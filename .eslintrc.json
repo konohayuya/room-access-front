@@ -1,6 +1,9 @@
 {
   "extends": [
-    "plugin:vue/base"
+    "plugin:vue/base",
+    "eslint-config-prettier",
+    "eslint-config-prettier/vue",
+    "eslint-config-prettier/@typescript-eslint"
   ],
   "rules": {
     "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}],
@@ -9,5 +12,9 @@
     "no-extra-semi": "error",
     "no-unexpected-multiline": "error",
     "no-unreachable": "error"
+  },
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser"
   }
 }

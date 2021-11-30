@@ -1,4 +1,5 @@
 module.exports = {
+  mode: "development",
   module: {
     rules: [
       {
@@ -16,6 +17,12 @@ module.exports = {
         ],
       },
       {
+        // 拡張子 .ts の場合
+        test: /\.ts$/,
+        // TypeScript をコンパイルする
+        use: "ts-loader"
+      },
+      {
         test: /\.styl(us)?$/,
         use: [
           'vue-style-loader',
@@ -25,4 +32,8 @@ module.exports = {
       },
     ],
   },
-};
+  // import 文で .ts ファイルを解決するため
+  resolve: {
+    extensions: [".ts", ".js", ".vue"]
+  }
+}
