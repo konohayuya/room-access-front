@@ -8,12 +8,13 @@ ui-table(:thead="thead" :fixed-header="true" :tbody="tbody" :data="data.slice(0,
 <script lang="ts">
 import {onBeforeMount, onBeforeUnmount, Ref, ref} from "vue"
 import {StateTableHeaderDict, StateTypeDict} from "./StateTranslateList"
+//@ts-ignore
+import {useBus} from "balm-ui/plugins/event"
 
 export default {
   name: 'LogList',
 
   setup() {
-    let cycle = NaN
     const thead = Object.values(StateTableHeaderDict)
     const tbody = ['name', {slot: 'state'}, 'option',
       {field : 'time',
@@ -29,16 +30,16 @@ export default {
       }}]
 
     const data: Ref<{ [p: string]: string }[]> = ref([])
-    data.value = [{name: 'data1', state: 'state1', option: 'option1', time: '2021-11-11'},
-      {name: 'data2', state: 'state2', time: '10:01'}]
+
+    const bus = useBus()
 
     onBeforeMount(() => {
-      cycle = setInterval(() => {
-        getLog().then(it => data.value = it)
-      }, 10000)
+      getLog().then(it => data.value = it)
+      bus.on('logChange', () => getLog().then(it => data.value = it))
     })
 
-    onBeforeUnmount(() => clearInterval(cycle))
+    onBeforeUnmount(() => bus.off('logChange'))
+
     return {thead, tbody, data, StateTypeDict}
   }
 }

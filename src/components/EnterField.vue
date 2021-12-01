@@ -17,7 +17,9 @@ ui-snackbar(v-model="isFailed" timeout-ms="8000") 送信失敗
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
+//@ts-ignore
+import {useBus} from "balm-ui/plugins/event"
 
 export default {
   name: "enter-field",
@@ -29,6 +31,8 @@ export default {
     const temperature = ref(36.5)
     const isSending = ref(false)
     const isFailed = ref(false)
+
+    const bus = useBus()
 
     const formSubmit = () => {
       // eslint-disable-next-line no-console
@@ -45,6 +49,8 @@ export default {
         // reset Value
         studentID.value = ''
         temperature.value = 36.5
+        bus.emit('stateChange')
+        bus.emit('logChange')
       })
     }
 

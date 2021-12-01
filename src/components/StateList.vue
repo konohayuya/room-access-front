@@ -11,12 +11,13 @@ ui-snackbar(v-model="isFailed" timeout-ms="8000") 送信失敗
 <script lang="ts">
 import {onBeforeMount, onBeforeUnmount, Ref, ref} from "vue"
 import {StateTypeDict} from "./StateTranslateList"
+//@ts-ignore
+import {useBus} from "balm-ui/plugins/event"
 
 export default {
   name: 'StateList',
 
   setup() {
-    let cycle = NaN
     const stateList: Ref<{[key: string]: string}[]> = ref([])
     const thead: string[] = ['名前', 'ボタン']
     const stateTypeDict = StateTypeDict
@@ -24,19 +25,20 @@ export default {
 
     const isFailed: Ref<boolean> = ref(false)
 
+    const bus = useBus()
+
     onBeforeMount(() => {
-      cycle = setInterval(() => {
-        getStateList().then(it => stateList.value = it)
-      }, 10000)
+      getStateList().then(it => stateList.value = it)
+      bus.on('stateChange', () => setTimeout( () => getStateList().then(it => stateList.value = it), 100))
     })
 
-    onBeforeUnmount(() => clearInterval(cycle))
+    onBeforeUnmount(() => bus.off('stateChange'))
 
     const submitState = (name, state) => {
       putState(name, state).then(it => {
         isFailed.value = it
-        // update state value
-        stateList.value[stateList.value.findIndex(it => it.name === name)].state = state
+        bus.emit('stateChange')
+        bus.emit('logChange')
       })
     }
 
