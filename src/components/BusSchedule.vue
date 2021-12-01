@@ -2,7 +2,7 @@
 div 長尾駅行き
 ui-list
   ui-skeleton(:paragraph="{ rows: 3 }" :title="false" :active="true" :loading="toNagaoList.length < 1")
-  ui-item(v-for="it in toNagaoList.slice(0, 2)" :key="it" v-shadow="0")
+  ui-item(v-for="it in toNagaoList.slice(0, 3)" :key="it" v-shadow="0")
     ui-item-text-content {{ it.time.toTimeString().slice(0, 5) }}
     ui-item-last-content
       ui-button.custom-button(outlined) {{ it.type }}
