@@ -11,6 +11,8 @@ div.content-wrapper
       ui-grid-cell
         div(:class="$tt('subtitle1')") ログ
         log-list
+      ui-grid-cell(columns="8")
+        state-list
 </template>
 
 <script lang="ts">
@@ -18,10 +20,12 @@ import EnterField from './components/EnterField.vue'
 import SideBar from './components/SideBar.vue'
 import BusSchedule from "@/components/BusSchedule.vue"
 import LogList from "@/components/LogList.vue"
+import StateList from "@/components/StateList.vue"
 
 export default {
   name: 'App',
   components: {
+    StateList,
     LogList,
     BusSchedule,
     SideBar,
