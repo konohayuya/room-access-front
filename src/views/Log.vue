@@ -3,7 +3,7 @@ ui-top-app-bar.app-bar(content-selector=".content-wrapper" :nav-icon="false") Lo
 div.content-wrapper
   side-bar
   div.main-wrapper
-    log-list
+    log-list(:is-short="false")
 </template>
 
 <script lang="ts">

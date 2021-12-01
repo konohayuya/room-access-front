@@ -1,5 +1,5 @@
 <template lang="pug">
-ui-table(:thead="thead" :fixed-header="true" :tbody="tbody" :data="data.slice(0, 5)" :fullwidth="true")
+ui-table(:thead="thead" :fixed-header="true" :tbody="tbody" :data="isShort ? data.slice(0, 5) : data.slice(0, 15)" :fullwidth="true")
   template(#state="{ data }")
     // translate to japanese
     span {{ data.state in StateTypeDict ? StateTypeDict[data.state] : data.state }}
@@ -13,6 +13,12 @@ import {useBus} from "balm-ui/plugins/event"
 
 export default {
   name: 'LogList',
+  props: {
+    isShort: {
+      type: Boolean,
+      default: true,
+    }
+  },
 
   setup() {
     const thead = Object.values(StateTableHeaderDict)
