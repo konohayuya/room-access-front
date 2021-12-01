@@ -4,7 +4,7 @@ ui-table(:thead="thead" :fixed-header="true" :tbody="tbody" :data="data.slice(0,
 
 <script lang="ts">
 import {onBeforeMount, onBeforeUnmount, Ref, ref} from "vue"
-import {StateTableHeaderDict, StateTypeDict} from "./StateTranslateList"
+import {StateTableHeaderDict} from "./StateTranslateList"
 
 export default {
   name: 'LogList',
@@ -12,7 +12,17 @@ export default {
   setup() {
     let cycle = NaN
     const thead = Object.values(StateTableHeaderDict)
-    const tbody = Object.keys(StateTableHeaderDict)
+    const tbody = ['name', 'state', 'option', {field: 'time',
+      // '2020-01-01 10:10:10' convert to today -> '10:10' /  yesterday and earlier -> '2020-01-01'
+      fn: data => {
+        const today = new Date()
+        today.setHours(0 ,0, 0, 0)
+        if (new Date(data.time) > today){
+          return data.time.slice(11, 16)
+        } else{
+          return data.time.slice(0, 10)
+        }
+      }}]
 
     const data: Ref<{ [p: string]: string }[]> = ref([])
     data.value = [{name: 'data1', state: 'state1', option: 'option1', time: '2021-11-11'},
@@ -34,21 +44,7 @@ async function getLog(): Promise<{[key: string]: string}[]> {
   today.setHours(0, 0, 0, 0)
 
   const r = await fetch('/api/log')
-  const rawList = await r.json()
-
-  // '2020-01-01 10:10:10' convert to today -> '10:10' /  yesterday and earlier -> '2020-01-01'
-  return rawList.map(it => {
-    if (it.state in StateTypeDict){
-      it.state = StateTypeDict[it.state]
-    }
-
-    if (new Date(it.time) > today) {
-      it.time = it.time.slice(11, 16)
-    } else {
-      it.time = it.time.slice(0, 10)
-    }
-    return it
-  })
+  return await r.json()
 }
 </script>
 
