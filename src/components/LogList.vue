@@ -34,10 +34,10 @@ async function getLog(): Promise<{[key: string]: string}[]> {
   today.setHours(0, 0, 0, 0)
 
   const r = await fetch('/api/log')
-  const raw_list = await r.json()
+  const rawList = await r.json()
 
   // '2020-01-01 10:10:10' convert to today -> '10:10' /  yesterday and earlier -> '2020-01-01'
-  return raw_list.map(it => {
+  return rawList.map(it => {
     if (it.state in StateTypeDict){
       it.state = StateTypeDict[it.state]
     }
