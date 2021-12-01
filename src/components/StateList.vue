@@ -3,7 +3,7 @@ ui-table(:data="stateList" :thead="['', '']" :tbody="tbody" v-if="stateList.leng
   template(#actions="{ data }")
     span(v-for="(v, k) in stateTypeDict" :key="k")
       ui-button(unelevated @click="submitState(data.name, k)" :disabled="data.state === k") {{ v }}
-
+      ui-divider(type="|")
 
 ui-snackbar(v-model="isFailed" timeout-ms="8000") 送信失敗
 </template>
