@@ -1,5 +1,5 @@
 <template lang="pug">
-ui-form(#default="actionClass" :item-margin-bottom="16")
+ui-form(#default="actionClass" item-margin-bottom="16")
   ui-form-field
     label
       ui-icon assignment_ind
@@ -10,9 +10,10 @@ ui-form(#default="actionClass" :item-margin-bottom="16")
       ui-icon device_thermostat
       |  体温
     ui-slider(v-model="temperature" type="discrete" :min="35" :max="38" :step="0.1")
-  ui-form-field(:class="actionClass")
-    ui-button(raised icon="login" @click="formSubmit()") 入室
-ui-snackbar(v-model="isSnackOpen" timeout-ms="4000") 記録送信中
+  ui-form-field(class="actionClass")
+    ui-button(raised icon="login" @click="formSubmit()" :disabled="studentID.length === 0 || isSending") 入室
+ui-snackbar(v-model="isSending" timeout-ms="4000") 記録送信中
+ui-snackbar(v-model="isFailed" timeout-ms="8000") 送信失敗
 </template>
 
 <script lang="ts">
@@ -22,25 +23,32 @@ export default {
   name: "enter-field",
   props: {
   },
+
   setup() {
     const studentID = ref('')
     const temperature = ref(36.5)
-    const isSnackOpen = ref(false)
+    const isSending = ref(false)
+    const isFailed = ref(false)
 
     const formSubmit = () => {
       // eslint-disable-next-line no-console
       console.log('{', studentID.value, ',', temperature.value, '}')
-      isSnackOpen.value = true
+      isSending.value = true
 
       // form send
+      const res = fetch('/api/login',
+        {method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({name: studentID.value, temp: temperature.value.toFixed(1) + '℃'})})
 
-      // reset Value
-      studentID.value = ''
-      temperature.value = 36.5
-
+      res.catch( it => isFailed.value = true)
+      res.then( it => {
+        // reset Value
+        studentID.value = ''
+        temperature.value = 36.5
+      })
     }
 
-    return { studentID, temperature, isSnackOpen, formSubmit }
+    return { studentID, temperature, isSending, isFailed, formSubmit }
   },
 }
 </script>
