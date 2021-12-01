@@ -44,8 +44,8 @@ export default {
         {method: 'POST', headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({name: studentID.value, temp: temperature.value.toFixed(1) + '℃'})})
 
-      res.catch( it => isFailed.value = true)
-      res.then( it => {
+      res.catch( () => isFailed.value = true)
+      res.then( () => {
         // reset Value
         studentID.value = ''
         temperature.value = 36.5
