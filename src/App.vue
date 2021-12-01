@@ -8,16 +8,21 @@ div.content-wrapper
         enter-field
       ui-grid-cell
         bus-schedule
+      ui-grid-cell
+        div(:class="$tt('subtitle1')") ログ
+        log-list
 </template>
 
 <script lang="ts">
 import EnterField from './components/EnterField.vue'
 import SideBar from './components/SideBar.vue'
 import BusSchedule from "@/components/BusSchedule.vue"
+import LogList from "@/components/LogList.vue"
 
 export default {
   name: 'App',
   components: {
+    LogList,
     BusSchedule,
     SideBar,
     EnterField,
