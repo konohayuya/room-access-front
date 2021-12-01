@@ -1,5 +1,5 @@
 <template lang="pug">
-ui-table(:data="stateList" :thead="['', '']" :tbody="tbody")
+ui-table(:data="stateList" :thead="['', '']" :tbody="tbody" v-if="stateList.length > 0" )
   template(#actions="{ data }")
     span(v-for="(v, k) in stateTypeDict" :key="k")
       ui-button(unelevated @click="submitState(data.name, k)" :disabled="data.state === k") {{ v }}

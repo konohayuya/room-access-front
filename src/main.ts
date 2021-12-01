@@ -11,8 +11,9 @@ import BalmUI from 'balm-ui'
 // @ts-ignore
 import BalmUIPlus from 'balm-ui-plus'
 import 'balm-ui-css'
+import router from './router'
 
-const app = createApp(App)
+const app = createApp(App).use(router)
 
 /* FontAwesome */
 library.add(fas)

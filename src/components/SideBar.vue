@@ -2,23 +2,24 @@
 ui-drawer(viewport-height)
   ui-drawer-content
     ui-nav
-      ui-nav-item
-        ui-item-first-content
-          ui-icon login
-        ui-item-text-content 入室管理
-      ui-nav-item
-        ui-item-first-content
-          ui-icon format_list_bulleted
-        ui-item-text-content 入室記録
-      ui-nav-item
-        ui-item-first-content
-          ui-icon hourglass_bottom
-        ui-item-text-content タイマー
+      router-link.router-link(to='/')
+        ui-nav-item(href="javascript:void(0);")
+          ui-item-first-content
+            ui-icon login
+          ui-item-text-content 入室管理
+      router-link.router-link(to='/log')
+        ui-nav-item(href="javascript:void(0);")
+          ui-item-first-content
+            ui-icon format_list_bulleted
+          ui-item-text-content 入室記録
+      router-link.router-link(to='/')
+        ui-nav-item(href="javascript:void(0);")
+          ui-item-first-content
+            ui-icon hourglass_bottom
+          ui-item-text-content タイマー
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-
 export default {
   name: 'side-bar',
   props: {
@@ -28,4 +29,7 @@ export default {
 
 <style scoped lang="stylus">
 indent-width = 30px
+.router-link
+  text-decoration none
+  color inherit
 </style>
