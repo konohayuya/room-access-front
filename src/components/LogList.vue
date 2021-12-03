@@ -1,8 +1,11 @@
 <template lang="pug">
-ui-table(:thead="thead" :fixed-header="true" :tbody="tbody" :data="isShort ? data.slice(0, 5) : data.slice(0, 15)" :fullwidth="true")
+ui-table(:thead="thead" :fixed-header="true" :tbody="tbody"
+  :data="isShort ? data.slice(0, 7) : data" :fullwidth="true")
   template(#state="{ data }")
     // translate to japanese
     span {{ data.state in StateTypeDict ? StateTypeDict[data.state] : data.state }}
+
+ui-skeleton(:paragraph="{ rows: 10 }" :title="false" :active="true" :loading="data.length < 1")
 </template>
 
 <script lang="ts">

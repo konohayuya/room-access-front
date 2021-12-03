@@ -1,5 +1,5 @@
 <template lang="pug">
-ui-drawer(viewport-height)
+ui-drawer(viewport-height type="permanent" nav-id="menu")
   ui-drawer-content
     ui-nav
       router-link.router-link(to='/')
@@ -16,7 +16,7 @@ ui-drawer(viewport-height)
         ui-nav-item(href="javascript:void(0);")
           ui-item-first-content
             ui-icon hourglass_bottom
-          ui-item-text-content タイマー
+          ui-item-text-content タイマー(未実装)
 </template>
 
 <script lang="ts">

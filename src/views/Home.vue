@@ -1,5 +1,5 @@
 <template lang="pug">
-ui-top-app-bar.app-bar(content-selector=".content-wrapper" :nav-icon="false") Title
+ui-top-app-bar.app-bar(content-selector=".content-wrapper" nav-icon="menu" nav-id="menu") Title
 div.content-wrapper
   side-bar
   div.main-wrapper
@@ -41,6 +41,9 @@ body
   font-family sans-serif
   //background #cacdce
   color #262626
+
+.content-wrapper
+  height calc(100vh - 64px)
 
 .main-wrapper
   width 100%
