@@ -1,5 +1,5 @@
 <template lang="pug">
-ui-drawer(viewport-height)
+ui-drawer(viewport-height type="permanent" nav-id="menu")
   ui-drawer-content
     ui-nav
       router-link.router-link(to='/')
