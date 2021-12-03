@@ -48,7 +48,7 @@ export default {
       }), 5000)
 
       // for fix Slider point
-      setTimeout(() => enabledSlider.value = true, 5000)
+      setTimeout(() => enabledSlider.value = true, 2000)
     })
 
     onBeforeUnmount(() => clearInterval(cycle))
