@@ -54,8 +54,6 @@ export default {
     onBeforeUnmount(() => clearInterval(cycle))
 
     const formSubmit = () => {
-      // eslint-disable-next-line no-console
-      console.log('{', studentID.value, ',', temperature.value / 10, '}')
       isSending.value = true
 
       // form send
