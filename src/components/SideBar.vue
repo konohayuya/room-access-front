@@ -12,6 +12,11 @@ ui-drawer(viewport-height type="permanent" nav-id="menu")
           ui-item-first-content
             ui-icon format_list_bulleted
           ui-item-text-content 入室記録
+      router-link.router-link(to='/idm')
+        ui-nav-item(href="javascript:void(0);")
+          ui-item-first-content
+            ui-icon recent_actors
+          ui-item-text-content idmリスト
       router-link.router-link(to='/')
         ui-nav-item(href="javascript:void(0);")
           ui-item-first-content

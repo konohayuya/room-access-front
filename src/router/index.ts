@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from "@/views/Home.vue"
 import Log from "@/views/Log.vue"
+import Idm from "@/views/Idm.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/log',
     name: 'Log',
     component: Log
+  },
+  {
+    path: '/idm',
+    name: 'Idm',
+    component: Idm
   }
 ]
 
