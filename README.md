@@ -1,24 +1,26 @@
-# room-access
+# room-access-front
+- ゼミ室の入退室記録を取るためのアプリケーション
+- https://github.com/konohayuya/room-access-back のfrontend
+- かつての物がうまく機能していない部分があったため作り直した
+- ゼミの人がいずれ見てくれたらいいな
 
-## Project setup
+# Enviromnent
+- vue3
+- balmUI
+
+# How to use yarn
+## パッケージのインストール
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+## 確認用サーバの起動
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+## ビルド
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- この後`dist`下のファイルをbackendの`src/dist`下にコピーする
