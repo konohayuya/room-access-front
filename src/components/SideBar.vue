@@ -17,6 +17,7 @@ ui-drawer(viewport-height type="permanent" nav-id="menu")
           ui-item-first-content
             ui-icon recent_actors
           ui-item-text-content idmリスト
+      // タイマーは未実装(実装予定なし)
       router-link.router-link(to='/')
         ui-nav-item(href="javascript:void(0);")
           ui-item-first-content

@@ -44,7 +44,8 @@ export default {
 
     onBeforeMount(() => {
       getLog().then(it => data.value = it)
-      bus.on('logChange', () => getLog().then(it => data.value = it))
+      // log用のバスに信号が来ると更新
+      bus.on('logChange', () => getLog().then(it => data.value = it), 100)
     })
 
     onBeforeUnmount(() => bus.off('logChange'))

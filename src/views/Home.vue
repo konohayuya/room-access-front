@@ -39,10 +39,10 @@ export default {
 body
   margin 0
   font-family sans-serif
-  //background #cacdce
   color #262626
 
 .content-wrapper
+  // ヘッダー分だけ高さを減らす
   height calc(100vh - 64px)
 
 .main-wrapper

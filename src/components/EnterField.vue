@@ -5,9 +5,11 @@ ui-form(item-margin-bottom="24" action-align="right" type="|")
       label
         ui-icon assignment_ind
         |  学生番号
+      // カードをかざした場合は入力できないようにする
       ui-textfield(v-model="studentID" :disabled="receivedStudentID")
     ui-form-field(:class="itemClass")
       label
+        // バグにより小数点が丸め込まれるため,内部的には10倍の値で管理する
         ui-icon device_thermostat
         |  体温 {{ (temperature / 10).toFixed(1) }}
       ui-slider(v-model="temperature" type="continuous" :min="350" :max="379" :step="1" :key="enabledSlider" :disabled="!enabledSlider")
@@ -29,6 +31,7 @@ export default {
 
   setup() {
     const studentID = ref('')
+    // バグにより小数点が丸め込まれるため,内部的には10倍の値で管理する
     const temperature = ref(365)
     const receivedStudentID = ref(false)
     const isSending = ref(false)
@@ -40,6 +43,8 @@ export default {
 
     let cycle = NaN
     onBeforeMount(() => {
+      // 5000msごとに名前(学籍番号)の取得をする
+      // カードをかざした場合に名前(学籍番号)を入力されていることにする
       cycle = setInterval(() => getName().then(it => {
         if (typeof it == "string" && it.length > 0){
           studentID.value = it
@@ -47,7 +52,8 @@ export default {
         }
       }), 5000)
 
-      // for fix Slider point
+      // 初期状態だとスライダーがずれていた
+      // バージョンアップしたら不要になるかも
       setTimeout(() => enabledSlider.value = true, 2000)
     })
 
@@ -60,15 +66,17 @@ export default {
       const res = fetch('/api/login',
           {
             method: 'POST', headers: {'Content-Type': 'application/json'},
+            // 10倍の値で管理しているため,1/10の値で送信する
             body: JSON.stringify({name: studentID.value, temp: (temperature.value / 10).toFixed(1) + '℃'})
           })
 
       res.catch(() => isFailed.value = true)
       res.then(() => {
-        // reset Value
+        // 送信成功したら初期状態に戻す
         studentID.value = ''
         temperature.value = 365
         receivedStudentID.value = false
+        // バスに信号を送る
         bus.emit('stateChange')
         bus.emit('logChange')
       })
@@ -78,6 +86,7 @@ export default {
   },
 }
 
+// 名前(学生番号)の取得
 async function getName(): Promise<string> {
   const r = await fetch('/api/name')
   return await r.json().then(it => it)

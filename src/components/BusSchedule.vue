@@ -40,7 +40,7 @@ export default {
     const toHirakatashiKitaURL = "/api/bus/hirakatashi-kita"
 
     onBeforeMount(() => {
-      // get list first time
+      // 初回だけすぐに取得
       ToStation(toNagaoURL)
         .then(it => toNagaoList.value = it)
       ToStation(toKuzuhaURL)
@@ -48,11 +48,12 @@ export default {
       ToStation(toHirakatashiKitaURL)
         .then(it => toHirakatashiKitaList.value = it)
 
-      // register update event
+      // 30sごとに取得
       cycles = setInterval(() => {
         const now = new Date()
 
-        // update data if first elem past
+        // 直近のバスがすでに通り過ぎていたら取得
+        // 日が変わった直後なら取得(リストが空の場合は前半の条件がfalseを返すため)
         if(toNagaoList.value[0]?.time < now || now.toTimeString().slice(0, 5) === '00:00'){
           ToStation(toNagaoURL)
             .then(it => toNagaoList.value = it)
@@ -70,7 +71,6 @@ export default {
 
     },30000)},)
 
-    // unregister update event
     onBeforeUnmount(() => clearInterval(cycles))
 
     return {toNagaoList, toKuzuhaList, toHirakatashiKitaList}

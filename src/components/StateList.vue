@@ -30,7 +30,9 @@ export default {
     const bus = useBus()
 
     onBeforeMount(() => {
+      // 現在の入室状況を問い合わせている
       getStateList().then(it => stateList.value = it)
+      // バスから信号が来たとき(人の出入りがあったとき)に状態を更新するけど,バックエンドを介して処理しているから100msだけ待つ
       bus.on('stateChange', () => setTimeout( () => getStateList().then(it => stateList.value = it), 100))
     })
 
@@ -39,7 +41,9 @@ export default {
     const submitState = (name, state) => {
       putState(name, state).then(it => {
         isFailed.value = it
+        // 自分のバスに信号を送って更新させる
         bus.emit('stateChange')
+        // logのバスに信号を送って更新させる
         bus.emit('logChange')
       })
     }
