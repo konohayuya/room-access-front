@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import App from './App.vue'
 
 // Official Google Material Components
-// @ts-ignore
 import BalmUI from 'balm-ui'
 // BalmJS Team Material Components
 // @ts-ignore
