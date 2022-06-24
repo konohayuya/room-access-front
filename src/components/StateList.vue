@@ -1,7 +1,7 @@
 <template lang="pug">
 ui-table(:data="stateList" :thead="['', '']" :tbody="tbody" v-if="stateList.length > 0" )
   template(#actions="{ data }")
-    span(v-for="(v, k) in stateTypeDict" :key="k")
+    span(v-for="(v, k) in StateTypeDict" :key="k")
       ui-button(unelevated @click="submitState(data.name, k)" :disabled="data.state === k") {{ v }}
       ui-divider(type="|")
 
@@ -22,7 +22,6 @@ export default {
 
   setup() {
     const thead: string[] = ['名前', 'ボタン']
-    const stateTypeDict = StateTypeDict
     const tbody = ['name', {slot: 'actions'}]
 
     const isFailed: Ref<boolean> = ref(false)
@@ -42,7 +41,7 @@ export default {
       resp.catch(() => isFailed.value = true)
     }
 
-    return {stateList, stateTypeDict, thead, tbody, isFailed, submitState}
+    return {stateList, StateTypeDict, thead, tbody, isFailed, submitState}
   }
 }
 
