@@ -13,3 +13,19 @@ export type PersonState = {
   state: StateType
 }
 
+export class BusDeparture {
+  time: Date
+  type: string
+
+  constructor(time: string, type: string) {
+    const [hour, minutes] = time.split(":")
+    const d = new Date()
+    d.setHours(parseInt(hour))
+    d.setMinutes(parseInt(minutes))
+    d.setSeconds(0, 0)
+    this.time = d
+    this.type = type
+  }
+}
+
+
