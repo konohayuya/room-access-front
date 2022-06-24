@@ -1,11 +1,18 @@
 
 export type StateType =  'login' | 'lecture' | 'in-campus'| 'be-out' | 'in-home'
 
-export type PersonLog = {
+export class PersonLog {
   name: string
   state: StateType
   option: string
-  time: string
+  time: Date
+
+  constructor(name: string, state: StateType, option: string, time: string) {
+    this.name = name
+    this.state = state
+    this.option = option
+    this.time = new Date(time)
+  }
 }
 
 export type PersonState = {

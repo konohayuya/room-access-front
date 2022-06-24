@@ -11,7 +11,8 @@ ui-skeleton(:paragraph="{ rows: 10 }" :title="false" :active="true" :loading="da
 <script lang="ts">
 import {computed, ComputedRef, onBeforeMount} from "vue"
 import {useStore} from "vuex"
-import {StateTableHeaderDict, StateTypeDict} from "./StateTranslateList"
+import moment from "moment"
+import {StateTableHeaderDict, StateTypeDict} from "@/components/StateTranslateList"
 import {PersonLog} from "@/store/types"
 
 export default {
@@ -23,18 +24,29 @@ export default {
     }
   },
 
-  setup() {
+  setup(props) {
     const thead = Object.values(StateTableHeaderDict)
     const tbody = ['name', {slot: 'state'}, 'option',
       {field : 'time',
-      // '2020-01-01 10:10:10' convert to today -> '10:10' /  yesterday and earlier -> '2020-01-01'
       fn: data => {
-        const today = new Date()
-        today.setHours(0 ,0, 0, 0)
-        if (new Date(data.time) > today){
-          return data.time.slice(11, 16)
-        } else{
-          return data.time.slice(0, 10)
+        const today = moment().startOf('day')
+        const diff = today.diff(moment(data.time), 'days')
+
+        if (!props.isShort) {
+          return moment(data.time).format('YYYY/MM/DD HH:mm:ss')
+        }
+        // today -> HH:mm / yesterday ->  昨日 HH:mm / other -> MM/DD HH:mm
+        else if (diff === 0) {
+          return moment(data.time).format('HH:mm')
+        }
+        else if (diff === 1) {
+          return moment(data.time).format('昨日 HH:mm')
+        }
+        else if (diff > 1) {
+          return moment(data.time).format('MM/DD HH:mm')
+        }
+        else {
+          return moment(data.time).format('未来 YYYY/MM/DD HH:mm')
         }
       }}]
 

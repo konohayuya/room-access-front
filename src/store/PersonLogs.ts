@@ -1,5 +1,5 @@
 import axios from "axios"
-import { PersonLog } from "@/store/types"
+import {PersonLog, StateType} from "@/store/types"
 
 export const ModulePersonLogs = {
   state: () => ({
@@ -24,7 +24,11 @@ export const ModulePersonLogs = {
       const LOG_ENDPOINT = '/api/log'
 
       const resp = await axios.get(LOG_ENDPOINT)
-      commit('NewLogs', await resp.data as PersonLog[])
+      const logs = resp.data.map((data: {name: string, state: StateType, option: string, time: string}) => {
+        return new PersonLog(data.name, data.state, data.option, data.time)
+      },)
+
+      commit('NewLogs', logs)
     }
   }
 }
