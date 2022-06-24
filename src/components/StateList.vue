@@ -11,41 +11,35 @@ ui-snackbar(v-model="isFailed" timeout-ms="8000") 送信失敗
 </template>
 
 <script lang="ts">
-import {onBeforeMount, onBeforeUnmount, Ref, ref} from "vue"
+import {computed, ComputedRef, onBeforeMount, Ref, ref} from "vue"
 import {StateTypeDict} from "./StateTranslateList"
-//@ts-ignore
-import {useBus} from "balm-ui/plugins/event"
+import {useStore} from "vuex"
+
+import {PersonState} from "@/store/types"
 
 export default {
   name: 'StateList',
 
   setup() {
-    const stateList: Ref<{[key: string]: string}[]> = ref([])
     const thead: string[] = ['名前', 'ボタン']
     const stateTypeDict = StateTypeDict
     const tbody = ['name', {slot: 'actions'}]
 
     const isFailed: Ref<boolean> = ref(false)
 
-    const bus = useBus()
+    const store = useStore()
+
+    const stateList: ComputedRef<PersonState[]> = computed(() => store.getters.GetStates)
 
     onBeforeMount(() => {
       // 現在の入室状況を問い合わせている
-      getStateList().then(it => stateList.value = it)
-      // バスから信号が来たとき(人の出入りがあったとき)に状態を更新するけど,バックエンドを介して処理しているから100msだけ待つ
-      bus.on('stateChange', () => setTimeout( () => getStateList().then(it => stateList.value = it), 100))
+      store.dispatch('FetchStates')
     })
 
-    onBeforeUnmount(() => bus.off('stateChange'))
-
-    const submitState = (name, state) => {
-      putState(name, state).then(it => {
-        isFailed.value = it
-        // 自分のバスに信号を送って更新させる
-        bus.emit('stateChange')
-        // logのバスに信号を送って更新させる
-        bus.emit('logChange')
-      })
+    const submitState = (name: string, state: PersonState) => {
+      const resp = store.dispatch('PutStates', {name, state})
+      // 失敗したらトースト表示
+      resp.catch(() => isFailed.value = true)
     }
 
     return {stateList, stateTypeDict, thead, tbody, isFailed, submitState}

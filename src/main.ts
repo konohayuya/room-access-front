@@ -8,6 +8,7 @@ import BalmUI from 'balm-ui'
 import BalmUIPlus from 'balm-ui-plus'
 import 'balm-ui-css'
 import router from './router'
+import { store } from './store'
 
 const app = createApp(App).use(router)
 
@@ -15,4 +16,6 @@ const app = createApp(App).use(router)
 app.use(BalmUI)
 app.use(BalmUIPlus)
 
+// vuex
+app.use(store)
 app.mount('#app')
