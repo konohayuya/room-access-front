@@ -48,11 +48,6 @@ export default {
     return {thead, tbody, data, StateTypeDict}
   }
 }
-
-async function getLog(): Promise<{[key: string]: string}[]> {
-  const r = await fetch('/api/log')
-  return await r.json()
-}
 </script>
 
 <style scoped>

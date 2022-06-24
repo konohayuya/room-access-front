@@ -54,17 +54,6 @@ async function getStateList(): Promise<{[key: string]: string}[]> {
   return await r.json()
 }
 
-async function putState(name: string, state: string): Promise<boolean> {
-
-  const res = fetch('/api/state',
-    {method: 'PUT', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({name: name, state: state})})
-
-  res.then(() => {return true})
-  res.catch(() => {return false})
-  return false
-}
-
 </script>
 
 <style lang="stylus">
