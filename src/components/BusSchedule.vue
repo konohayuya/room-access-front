@@ -25,28 +25,26 @@ ui-list
 </template>
 
 <script lang="ts">
-import {onBeforeMount, onBeforeUnmount, ref, Ref} from "vue"
+import {computed, ComputedRef, onBeforeMount, onBeforeUnmount} from "vue"
+import {useStore} from "vuex"
+import {BusDeparture} from "@/store/types"
 
 export default {
   name: 'BusSchedule',
   setup(){
 
+    const store = useStore()
+
     let cycles = NaN
-    let toNagaoList: Ref<BusDeparture[]> = ref([])
-    const toNagaoURL = "/api/bus/nagao"
-    let toKuzuhaList: Ref<BusDeparture[]> = ref([])
-    const toKuzuhaURL = "/api/bus/kuzuha"
-    let toHirakatashiKitaList: Ref<BusDeparture[]> = ref([])
-    const toHirakatashiKitaURL = "/api/bus/hirakatashi-kita"
+    const toNagaoList: ComputedRef<BusDeparture[]> = computed(() => store.getters.GetToNagaoData)
+    const toKuzuhaList: ComputedRef<BusDeparture[]> = computed(() => store.getters.GetToKuzuhaData)
+    const toHirakatashiKitaList: ComputedRef<BusDeparture[]> = computed(() => store.getters.GetToHirakatashiKitaData)
 
     onBeforeMount(() => {
       // 初回だけすぐに取得
-      ToStation(toNagaoURL)
-        .then(it => toNagaoList.value = it)
-      ToStation(toKuzuhaURL)
-        .then(it => toKuzuhaList.value = it)
-      ToStation(toHirakatashiKitaURL)
-        .then(it => toHirakatashiKitaList.value = it)
+      store.dispatch('FetchToNagaoData')
+      store.dispatch('FetchToKuzuhaData')
+      store.dispatch('FetchToHirakatashiKitaData')
 
       // 30sごとに取得
       cycles = setInterval(() => {
@@ -55,18 +53,15 @@ export default {
         // 直近のバスがすでに通り過ぎていたら取得
         // 日が変わった直後なら取得(リストが空の場合は前半の条件がfalseを返すため)
         if(toNagaoList.value[0]?.time < now || now.toTimeString().slice(0, 5) === '00:00'){
-          ToStation(toNagaoURL)
-            .then(it => toNagaoList.value = it)
+          store.dispatch('FetchToNagaoData')
         }
 
         if(toKuzuhaList.value[0]?.time < now || now.toTimeString().slice(0, 5) === '00:00'){
-          ToStation(toKuzuhaURL)
-            .then(it => toKuzuhaList.value = it)
+          store.dispatch('FetchToKuzuhaData')
         }
 
         if(toHirakatashiKitaList.value[0]?.time < now || now.toTimeString().slice(0, 5) === '00:00'){
-          ToStation(toHirakatashiKitaURL)
-            .then(it => toHirakatashiKitaList.value = it)
+          store.dispatch('FetchToHirakatashiKitaData')
         }
 
     },30000)},)
@@ -76,28 +71,6 @@ export default {
     return {toNagaoList, toKuzuhaList, toHirakatashiKitaList}
   }
 }
-
-class BusDeparture {
-  time: Date
-  type: string
-
-  constructor(time: string, type: string) {
-    const [hour, minutes] = time.split(":")
-    const d = new Date()
-    d.setHours(parseInt(hour))
-    d.setMinutes(parseInt(minutes))
-    d.setSeconds(0, 0)
-    this.time = d
-    this.type = type
-  }
-}
-
-async function ToStation(url: string): Promise<BusDeparture[]>{
-  const r = await fetch(url)
-  const raw_list = await r.json()
-  return raw_list.map(it => new BusDeparture(it["time"], it["type"]))
-}
-
 </script>
 
 <style lang="stylus">

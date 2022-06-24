@@ -21,8 +21,7 @@ ui-snackbar(v-model="isFailed" timeout-ms="8000") 送信失敗
 
 <script lang="ts">
 import {onBeforeMount, onBeforeUnmount, ref} from 'vue'
-//@ts-ignore
-import {useBus} from "balm-ui/plugins/event"
+import {useStore} from "vuex"
 
 export default {
   name: "enter-field",
@@ -37,7 +36,7 @@ export default {
     const isSending = ref(false)
     const isFailed = ref(false)
 
-    const bus = useBus()
+    const store = useStore()
 
     const enabledSlider = ref(false)
 
@@ -76,9 +75,9 @@ export default {
         studentID.value = ''
         temperature.value = 365
         receivedStudentID.value = false
-        // バスに信号を送る
-        bus.emit('stateChange')
-        bus.emit('logChange')
+        // 送信成功したので,それぞれのリフレッシュ
+        store.dispatch('FetchStates')
+        store.dispatch('FetchLogs')
       })
     }
 

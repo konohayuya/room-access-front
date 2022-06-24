@@ -3,16 +3,16 @@ ui-table(:thead="thead" :fixed-header="true" :tbody="tbody"
   :data="isShort ? data.slice(0, 7) : data" :fullwidth="true")
   template(#state="{ data }")
     // translate to japanese
-    span {{ data.state in StateTypeDict ? StateTypeDict[data.state] : data.state }}
+    span {{ StateTypeDict[data.state] }}
 
 ui-skeleton(:paragraph="{ rows: 10 }" :title="false" :active="true" :loading="data.length < 1")
 </template>
 
 <script lang="ts">
-import {onBeforeMount, onBeforeUnmount, Ref, ref} from "vue"
+import {computed, ComputedRef, onBeforeMount} from "vue"
+import {useStore} from "vuex"
 import {StateTableHeaderDict, StateTypeDict} from "./StateTranslateList"
-//@ts-ignore
-import {useBus} from "balm-ui/plugins/event"
+import {PersonLog} from "@/store/types"
 
 export default {
   name: 'LogList',
@@ -38,25 +38,15 @@ export default {
         }
       }}]
 
-    const data: Ref<{ [p: string]: string }[]> = ref([])
-
-    const bus = useBus()
+    const store = useStore()
+    const data: ComputedRef<PersonLog[]> = computed(() => store.getters.GetLogs)
 
     onBeforeMount(() => {
-      getLog().then(it => data.value = it)
-      // log用のバスに信号が来ると更新
-      bus.on('logChange', () => getLog().then(it => data.value = it), 100)
+      store.dispatch('FetchLogs')
     })
-
-    onBeforeUnmount(() => bus.off('logChange'))
 
     return {thead, tbody, data, StateTypeDict}
   }
-}
-
-async function getLog(): Promise<{[key: string]: string}[]> {
-  const r = await fetch('/api/log')
-  return await r.json()
 }
 </script>
 
