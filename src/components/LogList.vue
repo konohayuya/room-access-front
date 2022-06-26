@@ -30,7 +30,7 @@ export default {
       {field : 'time',
       fn: data => {
         const today = moment().startOf('day')
-        const diff = today.diff(moment(data.time), 'days')
+        const diff = today.diff(moment(data.time).startOf('day'), 'days')
 
         if (!props.isShort) {
           return moment(data.time).format('YYYY/MM/DD HH:mm:ss')
