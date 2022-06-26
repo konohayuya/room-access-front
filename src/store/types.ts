@@ -20,6 +20,11 @@ export type PersonState = {
   state: StateType
 }
 
+export type FelicaDatum = {
+  idm: string
+  name: string
+}
+
 export class BusDeparture {
   time: Date
   type: string
