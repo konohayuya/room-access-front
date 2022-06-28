@@ -3,7 +3,6 @@ ui-table(:data="stateList" :thead="['', '']" :tbody="tbody" v-if="stateList.leng
   template(#actions="{ data }")
     span(v-for="(v, k) in StateTypeDict" :key="k")
       ui-button(unelevated @click="submitState(data.name, k)" :disabled="data.state === k") {{ v }}
-      ui-divider(type="|")
 
 ui-skeleton(:paragraph="{ rows: 3 }" :title="false" :active="false" :loading="stateList.length < 1")
 
