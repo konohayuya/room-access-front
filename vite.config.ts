@@ -29,22 +29,4 @@ export default {
       'balm-ui-css': 'balm-ui/dist/balm-ui.css',
     }
   },
-
-  defineConfig: {
-    plugins: [
-      vue(),
-      pugPlugin(options, locals),
-    ],
-    resolve: {
-      alias: {
-        "@": `${__dirname}/src`,
-        vue: 'vue/dist/vue.esm-bundler.js',
-        'balm-ui-plus': 'balm-ui/dist/balm-ui-plus.js',
-        'balm-ui-css': 'balm-ui/dist/balm-ui.css',
-      }
-    },
-
-    server: {
-    }
-  },
 }
