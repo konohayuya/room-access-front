@@ -59,27 +59,6 @@ export default {
     return {thead, tbody, data, newNames, isFailed, updateIdm}
   }
 }
-
-
-// idmリストの取得
-async function getIdmList(): Promise<{[key: string]: string}[]> {
-  const r = await fetch('/api/idm')
-  return await r.json()
-}
-
-// idmリストの更新(学生番号を変更する場合)
-async function putIdm(idm: string, name: string): Promise<void>{
-  if (name.length < 1) {
-    return Promise.reject(new Error('name arg need some string not empty'))
-  }
-
-  const r = await fetch('/api/idm',
-    {
-      method: 'PUT', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({idm: idm, name: name})
-    })
-}
-
 </script>
 
 <style scoped>
